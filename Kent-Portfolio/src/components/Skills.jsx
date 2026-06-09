@@ -1,4 +1,4 @@
-const skills = ['React', 'Node.js', 'Express', 'MongoDB', 'Three.js', 'UI Motion'];
+const skills = ['React', 'Node.js', 'Express', 'Django', 'SQL', 'MongoDB'];
 
 export default function Skills() {
     return (
