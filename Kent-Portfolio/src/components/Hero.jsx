@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Stars from './Stars';
+import RocketField from './RocketField';
 import ShootingStar from './ShootingStar';
 import Planet from './Planet';
+import SolarSystem from './SolarSystem';
 import profileImage from '../assets/profile_picture.png';
 
 export default function Hero() {
@@ -25,7 +27,9 @@ export default function Hero() {
             <div className="hero__galaxy" aria-hidden="true" />
             <div className="star-glow" aria-hidden="true" />
             <Stars />
+            <RocketField />
             <ShootingStar />
+            <SolarSystem />
 
             <div className="hero__content">
                 <motion.div
@@ -34,10 +38,10 @@ export default function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, ease: 'easeOut' }}
                 >
-                    <p className="eyebrow">MISSION PROFILE</p>
+
                     <h1>KENT LEONEL SEVELLINO</h1>
-                    <h2>FULL STACK DEVELOPER</h2>
-                    <p className="hero__lede">Creating digital experiences across the universe.</p>
+                    <h2>ASPIRING BACKEND DEVELOPER</h2>
+                    <p className="hero__lede">I am a computer science student who is passionate about creating digital experiences across the universe.</p>
 
                     <div className="hero__actions">
                         <a className="button button--primary" href="#projects">

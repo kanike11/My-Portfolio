@@ -1,60 +1,40 @@
-import { useEffect, useState } from 'react';
-
 export default function ShootingStar() {
-    const [rockets, setRockets] = useState([]);
-
-    useEffect(() => {
-        let mounted = true;
-
-        function createRocket() {
-            if (!mounted) return;
-            const id = Math.random().toString(36).slice(2, 9);
-            const top = Math.floor(Math.random() * 60) + 8; // 8% - 68%
-            const scale = (Math.random() * 0.45 + 0.8).toFixed(2);
-            const duration = (Math.random() * 1.2 + 2.4).toFixed(2); // 2.4s - 3.6s
-            const drift = (Math.random() * 22 - 11).toFixed(1); // -11vh to 11vh
-
-            setRockets((current) => [...current, { id, top, scale, duration, drift }]);
-
-            // remove after animation
-            setTimeout(() => {
-                setRockets((current) => current.filter((rocket) => rocket.id !== id));
-            }, Number(duration) * 1000 + 200);
-        }
-
-        // create first rocket shortly after mount
-        const firstTimeout = setTimeout(createRocket, 900);
-
-        // then create rockets at intervals
-        const interval = setInterval(() => {
-            createRocket();
-        }, 4200);
-
-        return () => {
-            mounted = false;
-            clearInterval(interval);
-            clearTimeout(firstTimeout);
-        };
-    }, []);
-
     return (
-        <div className="rocket-field" aria-hidden="true">
-            {rockets.map((rocket) => (
-                <div
-                    key={rocket.id}
-                    className="rocket"
-                    style={{
-                        top: `${rocket.top}%`,
-                        '--rocket-scale': rocket.scale,
-                        '--rocket-drift': `${rocket.drift}vh`,
-                        animationDuration: `${rocket.duration}s`,
-                    }}
-                >
-                    <span className="rocket__trail" />
-                    <span className="rocket__body" />
-                    <span className="rocket__flame" />
-                </div>
-            ))}
+        <div className="shooting-star" aria-hidden="true" style={SHOOTING_STAR_STYLE}>
+            <span style={SHOOTING_HEAD_STYLE} />
+            <span style={SHOOTING_TAIL_STYLE} />
         </div>
     );
 }
+
+const SHOOTING_STAR_STYLE = {
+    position: 'absolute',
+    inset: 0,
+    zIndex: 0,
+    pointerEvents: 'none',
+};
+
+const SHOOTING_HEAD_STYLE = {
+    position: 'absolute',
+    left: '68%',
+    top: '24%',
+    width: '5px',
+    height: '5px',
+    borderRadius: '999px',
+    background: '#ffffff',
+    boxShadow: '0 0 14px rgba(255, 255, 255, 0.95), 0 0 28px rgba(121, 216, 255, 0.75)',
+};
+
+const SHOOTING_TAIL_STYLE = {
+    position: 'absolute',
+    left: 'calc(68% - 96px)',
+    top: 'calc(24% + 2px)',
+    width: '96px',
+    height: '2px',
+    borderRadius: '999px',
+    background: 'linear-gradient(90deg, rgba(255,255,255,0), rgba(155,231,255,0.15), rgba(255,255,255,0.95))',
+    transform: 'rotate(-22deg)',
+    transformOrigin: 'right center',
+    filter: 'blur(0.2px)',
+    opacity: 0.95,
+};
